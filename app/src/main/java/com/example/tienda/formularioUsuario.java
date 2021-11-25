@@ -3,6 +3,7 @@ package com.example.tienda;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +12,7 @@ import android.widget.EditText;
 
 public class formularioUsuario extends AppCompatActivity {
     Button B1;
-    EditText Enombre,Eapellido, Econtraseña1,Econtraseña2,Etelefono,Efecha,Ecorreo;
+    EditText Enombre,Eapellido, Econtraseña1,Econtraseña2,Etelefono,Efecha,Ecorreo,Eusuario;
     GestorDB db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,7 @@ public class formularioUsuario extends AppCompatActivity {
         B1=(Button) findViewById(R.id.b1);
         Enombre=(EditText) findViewById(R.id.Enombre);
         Eapellido=(EditText) findViewById(R.id.eapellido);
+        Eusuario=(EditText) findViewById(R.id.eusuario);
         Econtraseña1=(EditText) findViewById(R.id.ePassword1);
         Econtraseña2=(EditText) findViewById(R.id.ePassword2);
         Etelefono=(EditText) findViewById(R.id.etelefono);
@@ -31,23 +33,48 @@ public class formularioUsuario extends AppCompatActivity {
 
     public void guardarDatos(View view)
     {
-        String nombre,apellido,telefono,correo,contraseña1,contraseña2,fecha;
+        String nombre,apellido,telefono,correo,contraseña1,contraseña2,fecha,usuario;
         nombre=Enombre.getText().toString();
         apellido=Eapellido.getText().toString();
+        usuario=Eusuario.getText().toString();
         telefono=Etelefono.getText().toString();
         correo=Ecorreo.getText().toString();
         fecha=Efecha.getText().toString();
         contraseña1=Econtraseña1.getText().toString();
         contraseña2=Econtraseña2.getText().toString();
+        AlertDialog.Builder Alerta=new AlertDialog.Builder(this);
+        Alerta.setTitle("advertencia");
 
-        db.insertData(nombre,apellido,telefono,correo,fecha,contraseña1);
-        int v1,v2,v3;
+        boolean v1,v2,v3;
         boolean v4;
-        v4=nombre.matches("[A-Z].*");
+        Cursor res;
+        v1=nombre.matches("[A-Z].*");
+        v2=apellido.matches("[A-Z].*");
+        v3=contraseña1.equals(contraseña2);
 
-        v1=validarDatos(1,nombre);
-        v2=validarDatos(1,apellido);
-        v3=validarDatos(2,telefono);
+        if(v1&&v2&&v3)
+        {
+           res=db.getData(usuario);
+            if(res.moveToFirst())
+            {
+                Alerta.setMessage("Usuario ya existe");
+            }
+            else
+            {
+
+                Alerta.setMessage("registro exitoso");
+                //db.insertData(nombre,apellido,usuario,telefono,correo,fecha,contraseña1);
+           }
+
+
+        }
+        else
+        {
+            Alerta.setMessage("error");
+
+        }
+        Alerta.create().show();
+
 
     }
     public void consultar(View view){
@@ -59,34 +86,7 @@ public class formularioUsuario extends AppCompatActivity {
         }
 
     }
-    private int validarDatos(int i, String cadena) {
-        int validacion=1,c,pos;
-        switch (i)
-        {
-            case 1:
-                for(pos=0;pos<cadena.length();pos++) {
-                    c = cadena.charAt(pos);
-                    if(c<65||c>90)
-                    {
-                        validacion=0;
-                        pos=cadena.length();
-                    }
-                }
-                break;
 
-            case 2:
-                for(pos=0;pos<cadena.length();pos++) {
-                    c = cadena.charAt(pos);
-                    if(c<48||c>57)
-                    {
-                        validacion=0;
-                        pos=cadena.length();
-                    }
-                }
-                break;
-        }
-        return validacion;
-    }
 
     public void volver(View view) {
 
