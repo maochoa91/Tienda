@@ -9,7 +9,7 @@ import android.support.annotation.Nullable;
 
 public class GestorDB extends SQLiteOpenHelper {
     public final static String DATABASE_NAME="Tienda";
-    public final static String TABLE_NAME="Usuarios";
+    public final static String TABLE_NAME="Registro";
     public final static String TABLE_NAME_2="Productos";
     public final static String TABLE_NAME_3="Compras";
     public final static String COL1="ID";
@@ -34,13 +34,14 @@ public class GestorDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS " +TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT,"+COL1+"TEXT,"+COL2 + " TEXT,"+ COL3+"TEXT, "+COL4+"TEXT, "+COL5+"TEXT,"+ COL6+"TEXT,"+COL7+"TEXT,"+COL8+"TEXT)" );
+        db.execSQL("CREATE TABLE IF NOT EXISTS " +TABLE_NAME + "(ID INTEGER PRIMARY KEY AUTOINCREMENT,"+ COL1 +"TEXT,"+ COL2 +"TEXT,"+ COL3 +"TEXT, Usuario TEXT,"+COL5+"TEXT,"+ COL6+"TEXT,"+COL7+"TEXT,"+COL8+"TEXT)" );
         db.execSQL("CREATE TABLE IF NOT EXISTS " +TABLE_NAME_2 + "(ID INTEGER PRIMARY KEY AUTOINCREMENT,"+COL1_2+"TEXT,"+COL2_2 + " TEXT,"+ COL3_2+"INTEGER)" );
         db.execSQL("CREATE TABLE IF NOT EXISTS " +TABLE_NAME_3 + "(ID INTEGER PRIMARY KEY AUTOINCREMENT,"+COL1_3+"TEXT,"+COL2_3 + " TEXT,"+ COL3_3+"TEXT, "+COL4_3+"INTEGER)" );
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME_2);
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME_3);
@@ -93,7 +94,9 @@ public class GestorDB extends SQLiteOpenHelper {
     }
     public Cursor getData(String usu){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor=db.rawQuery("SELECT *FROM "+TABLE_NAME+" WHERE Usuario='"+usu+"'",null);
+
+        Cursor cursor=db.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE Usuario='"+usu+"'",null);
+
         return cursor;
 
     }

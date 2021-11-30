@@ -28,7 +28,7 @@ public class formularioUsuario extends AppCompatActivity {
         Efecha=(EditText) findViewById(R.id.efecha);
         Ecorreo=(EditText) findViewById(R.id.ecorreo);
         db=new GestorDB(this);
-
+        db.insertData("IVAn","OCHOA","ma","123656","correo","fecha","contraseña1");
     }
 
     public void guardarDatos(View view)
@@ -54,17 +54,19 @@ public class formularioUsuario extends AppCompatActivity {
 
         if(v1&&v2&&v3)
         {
+           //db.onUpgrade(db.getWritableDatabase(),1,1);
            res=db.getData(usuario);
+
             if(res.moveToFirst())
             {
-                Alerta.setMessage("Usuario ya existe");
+              Alerta.setMessage("Usuario ya existe");
             }
-            else
+           else
             {
 
                 Alerta.setMessage("registro exitoso");
-                //db.insertData(nombre,apellido,usuario,telefono,correo,fecha,contraseña1);
-           }
+                db.insertData(nombre,apellido,usuario,telefono,correo,fecha,contraseña1);
+          }
 
 
         }
@@ -78,7 +80,7 @@ public class formularioUsuario extends AppCompatActivity {
 
     }
     public void consultar(View view){
-        Cursor res=db.getData("1");
+        Cursor res=db.getData("3");
         String informacion=null;
         if(res.moveToFirst())
         {
