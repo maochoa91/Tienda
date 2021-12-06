@@ -2,13 +2,17 @@ package com.example.tienda;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+//import android.support.v7.app.AlertDialog;
+//import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +46,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         Alerta.create().show();
+
+    }
+
+    public void consultar(View view) {
+
+
+            Intent SA = new Intent(view.getContext(),Consultar.class);
+            startActivity(SA);
 
     }
 }
