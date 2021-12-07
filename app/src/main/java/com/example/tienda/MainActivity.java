@@ -56,4 +56,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(SA);
 
     }
+    public void Productos(View view) {
+
+
+            Intent SA = new Intent(view.getContext(),productos.class);
+            startActivity(SA);
+
+    }
 }

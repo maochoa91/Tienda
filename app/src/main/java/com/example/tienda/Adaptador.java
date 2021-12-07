@@ -1,9 +1,13 @@
 package com.example.tienda;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -11,21 +15,24 @@ import java.util.List;
 public class Adaptador extends RecyclerView.Adapter<Adaptador.ProductoViewHolder> {
 
 
-    List<producto> Productos;
+    List<producto> productos;
 
     public Adaptador(List<producto> productos) {
-        Productos = productos;
+        this.productos = productos;
     }
 
-    @NonNull
+
     @Override
-    public ProductoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+    public ProductoViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        View view= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview,viewGroup,false);
+        ProductoViewHolder PVH=new ProductoViewHolder(view);
+        return PVH;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductoViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull ProductoViewHolder productoViewHolder, int i) {
+        productoViewHolder.NombreProducto.setText(productos.get(i).NOMBRE);
+        productoViewHolder.ImagenProducto.setImageResource(productos.get(i).Imgid);
     }
 
     @Override
@@ -39,10 +46,16 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ProductoViewHolder
     }
 
     public class ProductoViewHolder extends RecyclerView.ViewHolder{
-
+        CardView cardView;
+        TextView NombreProducto;
+        ImageView ImagenProducto;
         public ProductoViewHolder(@NonNull View itemView) {
             super(itemView);
+            cardView=(CardView)itemView.findViewById(R.id.Card);
+            NombreProducto=(TextView)itemView.findViewById(R.id.t1Card);
+            ImagenProducto=(ImageView)itemView.findViewById(R.id.imgCard);
         }
+
     }
 
 }
