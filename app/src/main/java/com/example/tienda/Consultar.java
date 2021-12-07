@@ -37,8 +37,9 @@ public class Consultar extends AppCompatActivity {
 
     }
 
-    public void Consultar(View view) {
-        db_Fire.collection("Usuarios").document("1").get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    public void Consultar1(View view) {
+        db_Fire.collection("Usuarios").document("1")
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                T1.setText(documentSnapshot.getId().toString()+"\n" + documentSnapshot.get("nombre").toString());
