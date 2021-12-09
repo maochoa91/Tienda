@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,18 +17,23 @@ public class productos extends AppCompatActivity {
     RecyclerView LISTAPRODUCTOS;
     List<producto> PRODUCTOS;
     Context CONTEXTO;
+    //ImageView IMG;
+   // String URLImagen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_productos);
 
-      LISTAPRODUCTOS=(RecyclerView)findViewById(R.id.lista);
-       LISTAPRODUCTOS.setHasFixedSize(true);
-        LinearLayoutManager layoutManager=new LinearLayoutManager(CONTEXTO);
+        //URLImagen="";
+        //Glide.with(this).load(URLImagen).into(IMG);
+       LISTAPRODUCTOS=(RecyclerView) findViewById(R.id.lista);
+      // LISTAPRODUCTOS.setHasFixedSize(true);
+        LISTAPRODUCTOS.setHasFixedSize(true);
+       LinearLayoutManager layoutManager=new LinearLayoutManager(CONTEXTO);
       LISTAPRODUCTOS.setLayoutManager(layoutManager);
        Adaptador adaptador=new Adaptador(PRODUCTOS);
         inicializaDATOS();
-      inicializaADAPTADOR();
+     inicializaADAPTADOR();
 
     }
     private void inicializaDATOS() {

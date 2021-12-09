@@ -1,5 +1,6 @@
 package com.example.tienda;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public class Adaptador extends RecyclerView.Adapter<Adaptador.ProductoViewHolder> {
 
 
     List<producto> productos;
-
+    String URLImagen;
+    Context context;
     public Adaptador(List<producto> productos) {
         this.productos = productos;
     }
@@ -29,9 +35,11 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ProductoViewHolder
         return PVH;
     }
 
+    @NotNull
     @Override
     public void onBindViewHolder(@NonNull ProductoViewHolder productoViewHolder, int i) {
         productoViewHolder.NombreProducto.setText(productos.get(i).NOMBRE);
+       // Glide.with(context).load(URLImagen).into(productoViewHolder.ImagenProducto);
         productoViewHolder.ImagenProducto.setImageResource(productos.get(i).Imgid);
     }
 
